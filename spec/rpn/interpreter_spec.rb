@@ -19,7 +19,7 @@ RSpec.describe RPN::Interpreter do
 
         output = interpreter.interpret(expr)
 
-        expect(output).to eq('2')
+        expect(output).to eq('2.0')
       end
 
       xit 'does correctly interpret an expr. (two values and an operand)' do
