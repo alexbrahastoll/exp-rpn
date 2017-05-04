@@ -1,5 +1,2 @@
 require 'rpn/version'
-
-module RPN
-  # Your code goes here...
-end
+require 'rpn/interpreter'
