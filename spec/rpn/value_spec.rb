@@ -18,7 +18,7 @@ RSpec.describe RPN::Value do
 
       value.apply_to(stack)
 
-      expect(stack.pop).to eq(expected_stack_state)
+      expect(stack.pop).to eq(value)
     end
   end
 

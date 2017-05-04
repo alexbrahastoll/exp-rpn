@@ -9,7 +9,7 @@ module RPN
     end
 
     def apply_to(stack)
-      stack.push(content)
+      stack.push(self)
     end
 
     def to_s
