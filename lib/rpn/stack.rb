@@ -10,7 +10,7 @@ module RPN
     end
 
     def pop(n = 1)
-      @store.pop(n)
+      n > 1 ? @store.pop(n) : @store.pop
     end
   end
 end
