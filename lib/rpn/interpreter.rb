@@ -10,7 +10,7 @@ module RPN
 
     def interpret(expr)
       self.last_expr = remove_extra_whitespace(expr)
-      apply_values_and_operands
+      apply_values_and_operators
     end
 
     private
@@ -27,14 +27,14 @@ module RPN
       expr.gsub(/\s+/, ' ')
     end
 
-    def apply_values_and_operands
-      values_and_operands.each do |value_or_operand|
-        case value_or_operand
+    def apply_values_and_operators
+      values_and_operators.each do |value_or_operator|
+        case value_or_operator
         when /\d+(\.\d+)?/
-          value = RPN::Value.new(value_or_operand)
+          value = RPN::Value.new(value_or_operator)
           value.apply_to(stack)
         when /[\+\-\*\/]/
-          # TODO Apply operand to the stack.
+          # TODO Apply operator to the stack.
         else
           raise SyntaxError
         end
@@ -43,7 +43,7 @@ module RPN
       stack.pop.to_s
     end
 
-    def values_and_operands
+    def values_and_operators
       last_expr.split(' ')
     end
   end
