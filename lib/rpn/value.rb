@@ -12,6 +12,10 @@ module RPN
       stack.push(self)
     end
 
+    def ==(other)
+      content == other.content
+    end
+
     def to_s
       content.to_s('F')
     end

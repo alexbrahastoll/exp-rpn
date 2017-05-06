@@ -22,8 +22,28 @@ RSpec.describe RPN::Value do
     end
   end
 
+  describe '#==' do
+    context 'when compared to a Value that has the same content' do
+      it 'does return true' do
+        value = RPN::Value.new('1')
+        other_value = RPN::Value.new('1')
+
+        expect(value).to eq(other_value)
+      end
+    end
+
+    context 'when compared to a Value that has a different content' do
+      it 'does return false' do
+        value = RPN::Value.new('1')
+        other_value = RPN::Value.new('2')
+
+        expect(value).not_to eq(other_value)
+      end
+    end
+  end
+
   describe '#to_s' do
-    it 'does have the same string representation as a BigDecimal' do
+    it 'does have a coherent string representation' do
       value = RPN::Value.new('-1')
 
       expect(value.to_s).to eq('-1.0')
