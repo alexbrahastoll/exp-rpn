@@ -28,7 +28,7 @@ module RPN
     def method_missing(method, *args)
       potential_operator = method.id2name
 
-      if RPN::Operator::BINARY_OPERATORS.include?(potential_operator)
+      if RPN::BINARY_OPERATORS.include?(potential_operator)
         other = args[0]
         binary_operation(potential_operator, other)
       else
