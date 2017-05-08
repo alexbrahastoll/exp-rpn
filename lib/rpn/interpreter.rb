@@ -47,7 +47,7 @@ module RPN
         end
       end
 
-      stack.pop.to_s
+      stack.last.to_s
     end
 
     def values_and_operators

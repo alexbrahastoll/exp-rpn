@@ -39,6 +39,19 @@ RSpec.describe RPN::Interpreter do
 
         expect(output).to eq('9.0')
       end
+
+      it 'does correctly interpret an expr. split into multiple parts' do
+        expr_part1 = '5'
+        expr_part2 = '3'
+        expr_part3 = '-'
+        interpreter = RPN::Interpreter.new
+
+        interpreter.interpret(expr_part1)
+        interpreter.interpret(expr_part2)
+        final_output = interpreter.interpret(expr_part3)
+
+        expect(final_output).to eq('2.0')
+      end
     end
 
     context 'when the expression is invalid' do
@@ -78,9 +91,6 @@ RSpec.describe RPN::Interpreter do
         interpreter.interpret(expr) rescue nil
 
         expect(stack.empty?).to be_truthy
-      end
-
-      xit 'does raise an error when the expr. has too many values' do
       end
     end
   end

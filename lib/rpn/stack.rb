@@ -13,6 +13,10 @@ module RPN
       n > 1 ? @store.pop(n) : @store.pop
     end
 
+    def last
+      @store.last
+    end
+
     def empty?
       @store.empty?
     end
