@@ -22,6 +22,21 @@ RSpec.describe RPN::Value do
     end
   end
 
+  describe 'binary operators' do
+    ['+', '-', '*', '/'].each do |binary_operator|
+      it "does correctly compute #{binary_operator}" do
+        value = RPN::Value.new('4')
+        other_value = RPN::Value.new('2')
+        expected_value_content = eval("4 #{binary_operator} 2").to_s
+        expected_value = RPN::Value.new(expected_value_content)
+
+        result = value.send(binary_operator, other_value)
+
+        expect(result).to eq(expected_value)
+      end
+    end
+  end
+
   describe '#==' do
     context 'when compared to a Value that has the same content' do
       it 'does return true' do
