@@ -1,3 +1,7 @@
 #!/usr/bin/env ruby
 
+require 'bundler/setup'
 require 'rpn'
+require 'rpn/repl'
+
+RPN::REPL.new.start
