@@ -10,7 +10,13 @@ module RPN
 
     def interpret(expr)
       self.last_expr = remove_extra_whitespace(expr)
-      apply_values_and_operators
+
+      begin
+        apply_values_and_operators
+      rescue SyntaxError, RPN::TooFewOperands => e
+        stack.reset
+        raise e
+      end
     end
 
     private
@@ -34,7 +40,8 @@ module RPN
           value = RPN::Value.new(value_or_operator)
           value.apply_to(stack)
         when /[\+\-\*\/]/
-          # TODO Apply operator to the stack.
+          operator = RPN::Operator.new(value_or_operator)
+          operator.apply_to(stack)
         else
           raise SyntaxError
         end
