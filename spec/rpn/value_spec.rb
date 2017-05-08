@@ -14,7 +14,6 @@ RSpec.describe RPN::Value do
     it 'does push itself to the stack' do
       stack = RPN::Stack.new
       value = RPN::Value.new('3.75')
-      expected_stack_state = BigDecimal.new('3.75')
 
       value.apply_to(stack)
 

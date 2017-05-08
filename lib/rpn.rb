@@ -5,20 +5,20 @@ require 'rpn/operator'
 require 'rpn/value'
 
 module RPN
-  BINARY_OPERATORS = ['+', '-', '*', '/']
+  BINARY_OPERATORS = ['+', '-', '*', '/'].freeze
 
-  class RPN::TooFewOperands < StandardError
+  class TooFewOperands < StandardError
     def initialize(msg = nil)
-      msg ||= 'Too few operands were given to one of your operators.' +
+      msg ||= 'Too few operands were given to one of your operators.' \
         ' Please, check the expression you have provided. The stack was reset.'
 
       super(msg)
     end
   end
 
-  class RPN::TooManyOperands < StandardError
+  class TooManyOperands < StandardError
     def initialize(msg = nil)
-      msg ||= 'Too many operands were given to one of your operators.' +
+      msg ||= 'Too many operands were given to one of your operators.' \
         ' Please, check the expression you have provided. The stack was reset.'
 
       super(msg)

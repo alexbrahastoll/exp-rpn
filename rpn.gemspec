@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Alex Braha Stoll']
   spec.email         = ['alexbrahastoll@gmail.com']
 
-  spec.summary       = %q{A simple Reverse Polish Notation (RPN) CLI calculator.}
+  spec.summary       = 'A simple Reverse Polish Notation (RPN) CLI calculator.'
   spec.homepage      = 'http://alexbs.com.br'
   spec.license       = 'MIT'
 
@@ -30,4 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'rubocop', '~> 0.48.1'
 end

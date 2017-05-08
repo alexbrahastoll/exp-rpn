@@ -47,7 +47,7 @@ RSpec.describe RPN::Interpreter do
         interpreter = RPN::Interpreter.new
 
         expect do
-          output = interpreter.interpret(expr)
+          interpreter.interpret(expr)
         end.to raise_error(RPN::Interpreter::SyntaxError)
       end
 
@@ -66,7 +66,7 @@ RSpec.describe RPN::Interpreter do
         interpreter = RPN::Interpreter.new
 
         expect do
-          output = interpreter.interpret(expr)
+          interpreter.interpret(expr)
         end.to raise_error(RPN::TooFewOperands)
       end
 

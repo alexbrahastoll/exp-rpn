@@ -13,7 +13,7 @@ module RPN
     end
 
     def binary_operation(operator, other)
-      result_content = self.content.send(operator, other.content).to_s
+      result_content = content.send(operator, other.content).to_s
       self.class.new(result_content)
     end
 
@@ -34,6 +34,10 @@ module RPN
       else
         super
       end
+    end
+
+    def respond_to_missing?(method_name, include_private = false)
+      RPN::BINARY_OPERATORS.include?(method_name.to_s) || super
     end
   end
 end

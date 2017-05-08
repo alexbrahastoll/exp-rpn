@@ -36,10 +36,10 @@ module RPN
     def apply_values_and_operators
       values_and_operators.each do |value_or_operator|
         case value_or_operator
-        when /\d+(\.\d+)?/
+        when %r{\d+(\.\d+)?}
           value = RPN::Value.new(value_or_operator)
           value.apply_to(stack)
-        when /[\+\-\*\/]/
+        when %r{[\+\-\*\/]}
           operator = RPN::Operator.new(value_or_operator)
           operator.apply_to(stack)
         else
