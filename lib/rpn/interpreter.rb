@@ -1,6 +1,13 @@
 module RPN
   class Interpreter
-    class SyntaxError < StandardError; end
+    class SyntaxError < StandardError
+      def initialize(msg = nil)
+        msg ||= 'Ops, it seems you have a syntax error.' \
+          ' Please, check the expression you have provided.'
+
+        super(msg)
+      end
+    end
 
     attr_reader :last_expr
 
