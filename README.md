@@ -1,39 +1,73 @@
-# Rpn
+# Reverse Polish Notation
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rpn`. To experiment with that code, run `bin/console` for an interactive prompt.
+This gem implements a Reverse Polish Notation calculator that supports the basic
+four arithmetic operators (+, -, * and /). It also includes a CLI utility.
 
-TODO: Delete this and the text above, and describe your gem
+![](https://cl.ly/0G0S2z3J193J)
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'rpn'
+1. Clone this Git repository:
+```
+git clone git@github.com:alexbrahastoll/exp-rpn.git
 ```
 
-And then execute:
+2. Install the gem's dependencies:
+```
+bundle install
+```
 
-    $ bundle
+**Heads up:** This gem was developed using the most recent Ruby version at the
+time of its release (i.e. MRI 2.4.1). It may work with older versions, however
+it is recommended that you also use 2.4.1.
 
-Or install it yourself as:
-
-    $ gem install rpn
+3. Run the specs to make sure everything is working great (all tests should pass):
+```
+bundle exec rspec
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+After downloading and installing the gem, fire up the CLI with the following command:
+`./exe/rpn`
 
-## Development
+Then, have fun doing crazy arithmetic operations in RPN =)
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment. Run `bundle exec rpn` to use the code located in this directory, ignoring other installed copies of this gem.
+## Architectural choices and trade-offs
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+**High-level overview**
 
-## Contributing
+When you input an expression using the CLI, this is what basically happens:
 
-1. Fork it ( https://github.com/[my-github-username]/rpn/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+1. `RPN::Interpreter#interpret` gets called receiving the expression. The interpreter
+removes extra whitespaces from the expression and then goes through each potential
+token (values and operators).
+2. Each `RPN::Value` or `RPN::Operator` receives an `apply_to` message, causing
+the appropriate changes to the stack (an instance of `RPN::Stack` injected at the
+moment of the interpreter's initialization).
+3. After all the values and operators were processed, the last value pushed to the
+stack gets returned as a string.
+
+My intention was to implement the RPN calculator using a good OO design. I do think
+I was able to achieve that objective. The objects that are part of the solution
+are cohesive and loosely coupled. As a consequence, it seems that it would be really
+easy to extend this solution. For example, we could execute the following with
+little effort:
+
+- Make the calculator available in a Rails application by using this gem.
+Since the rest of the solution does not depend on the CLI, we could easily
+send to the interpreter messages coming from an HTML form for example;
+
+- It would be relatively straightforward to implement basic unary operators (e.g. the factorial)
+
+**Possible improvements**
+
+- This gem has a very good test coverage (98.9%), however I chose not to write unit tests
+for `RPN::Stack` and `RPN::CLI` because they are very simple objects. `RPN::Stack` is also being decently tested indirectly in other specs. If this project
+was to continue growing, I would very much likely also add unit tests to these classes.
+
+- To deal with errors, I am using exceptions. I think returning value objects might be
+a better solution however (because it seems we would have to deal with even more error
+scenarios if we were to add new features to the calculator). If I were to devote more
+time to this solution, I would probably experiment with value objects and refactor the code
+that currently use exceptions.
