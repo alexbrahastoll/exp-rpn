@@ -25,6 +25,10 @@ module RPN
       content.to_s('F')
     end
 
+    def zero?
+      content.zero?
+    end
+
     def method_missing(method, *args)
       potential_operator = method.id2name
 

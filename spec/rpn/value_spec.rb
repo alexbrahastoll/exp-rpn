@@ -63,4 +63,22 @@ RSpec.describe RPN::Value do
       expect(value.to_s).to eq('-1.0')
     end
   end
+
+  describe '#zero?' do
+    context 'when its content is equal to zero' do
+      it 'does return true' do
+        value = RPN::Value.new('0.0')
+
+        expect(value.zero?).to be_truthy
+      end
+    end
+
+    context 'when its content is not equal to zero' do
+      it 'does return false' do
+        value = RPN::Value.new('1')
+
+        expect(value.zero?).to be_falsey
+      end
+    end
+  end
 end
