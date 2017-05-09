@@ -80,12 +80,31 @@ RSpec.describe RPN::Interpreter do
 
         expect do
           interpreter.interpret(expr)
-        end.to raise_error(RPN::TooFewOperands)
+        end.to raise_error(RPN::Operator::TooFewOperandsError)
       end
 
       it 'does reset the stack when the expr. has too few values' do
         expr = '3 +'
         stack = RPN::Stack.new
+        interpreter = RPN::Interpreter.new(stack)
+
+        interpreter.interpret(expr) rescue nil
+
+        expect(stack.empty?).to be_truthy
+      end
+
+      it 'does raise an error when the expr. has a division by zero' do
+        expr = '10 0 /'
+        interpreter = RPN::Interpreter.new
+
+        expect do
+          interpreter.interpret(expr)
+        end.to raise_error(RPN::Operator::ZeroDivisionError)
+      end
+
+      it 'does reset the stack when the expr. has a division by zero' do
+        expr = '10 0 /'
+        stack = RPN::Stack.new([RPN::Value.new('1.0')])
         interpreter = RPN::Interpreter.new(stack)
 
         interpreter.interpret(expr) rescue nil

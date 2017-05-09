@@ -13,9 +13,10 @@ module RPN
 
       begin
         apply_values_and_operators
-      rescue SyntaxError, RPN::TooFewOperands => e
+      rescue SyntaxError, RPN::Operator::TooFewOperandsError,
+        RPN::Operator::ZeroDivisionError => e
         stack.reset
-        raise e
+        raise e, "#{e.message} The stack was reset.", e.backtrace
       end
     end
 
