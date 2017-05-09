@@ -23,7 +23,18 @@ RSpec.describe RPN::Operator do
 
         expect do
           operator.apply_to(stack)
-        end.to raise_error(RPN::TooFewOperands)
+        end.to raise_error(RPN::Operator::TooFewOperandsError)
+      end
+    end
+
+    context 'when a division by zero is attempted' do
+      it 'does raise an error' do
+        stack = RPN::Stack.new([RPN::Value.new('2.0'), RPN::Value.new('0.0')])
+        operator = RPN::Operator.new('/')
+
+        expect do
+          operator.apply_to(stack)
+        end.to raise_error(RPN::Operator::ZeroDivisionError)
       end
     end
   end
