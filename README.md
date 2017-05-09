@@ -3,7 +3,7 @@
 This gem implements a Reverse Polish Notation calculator that supports the basic
 four arithmetic operators (+, -, * and /). It also includes a CLI utility.
 
-![](https://cl.ly/0G0S2z3J193J)
+![](https://cl.ly/0G0S2z3J193J/download/Screen%20Recording%202017-05-09%20at%2012.15%20AM.gif)
 
 ## Installation
 
